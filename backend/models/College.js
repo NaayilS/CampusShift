@@ -6,7 +6,7 @@ const collegeSchema = new mongoose.Schema({
     gpaRequirement: { type: Number, required: true },
     creditsAccepted: { type: Number, required: true },
     tuition: { type: Number, required: true },
-    deadline: { type: Date, required: false },
+    deadline: { type: Date, required: false },  // optional deadline
     financialAidAvailable: { type: Boolean, default: false }
 });
 
