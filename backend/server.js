@@ -1,8 +1,8 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const dotenv = require('dotenv');
-const cors = require('cors');
-const authRoutes = require('./routes/auth');
+import express from 'express';
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
+import cors from 'cors';
+import authRoutes from './routes/auth.js';
 
 dotenv.config();
 
@@ -10,11 +10,16 @@ dotenv.config();
 const app = express();
 
 // Middleware
-app.use(express.json()); // To parse incoming JSON data
-app.use(cors()); // To enable Cross-Origin Resource Sharing (CORS)
+app.use(express.json()); 
+app.use(cors()); 
+// Global error handling middleware
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).json({ error: 'Something went wrong! Please try again later.' });
+});
 
 // MongoDB connection
-mongoose.connect(process.env.MONGO_URI, {
+mongoose.connect(process.env.MONGO_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 })
